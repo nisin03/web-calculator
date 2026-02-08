@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Parser } from "expr-eval";
+import { evaluateExpression } from "../lib/mathEvaluator";
 
 export default function Home() {
   const [display, setDisplay] = useState("");
@@ -22,10 +22,8 @@ export default function Home() {
         return;
       }
 
-      const parser = new Parser();
-      const expr = parser.parse(display);
-      const result = expr.evaluate();
-      if (!Number.isFinite(result)) {
+      const result = evaluateExpression(display);
+      if (result == null) {
         setDisplay("Error");
         return;
       }
